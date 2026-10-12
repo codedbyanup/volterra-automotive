@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#060607" />
+    <title>Volterra Automotive | Welcome Itz Fizz</title>
+    <meta
+      name="description"
+      content="Volterra Automotive is a fictional concept brand: precision engineering, uncompromising performance, electric innovation. A scroll-driven GSAP landing page."
+    />
+    <meta property="og:title" content="Volterra Automotive" />
+    <meta property="og:description" content="Precision engineering. Uncompromising performance. Electric innovation." />
+    <meta property="og:type" content="website" />
+    <!-- The hero car is the largest-contentful element, so fetch it first. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/webp"
+      href="%BASE_URL%images/car-hero-2048.webp"
+      imagesrcset="%BASE_URL%images/car-hero-1024.webp 1024w, %BASE_URL%images/car-hero-2048.webp 2048w"
+      imagesizes="(min-width: 768px) 88vw, 120vw"
+      fetchpriority="high"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
