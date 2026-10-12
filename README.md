@@ -1,77 +1,125 @@
-# Volterra Automotive: scroll-driven landing page
+# Volterra Automotive — Cinematic Concept EV Experience
 
-A cinematic, scroll-driven automotive landing page built for a front-end animation assignment.
-Volterra Automotive is a **fictional concept brand**. Every figure on the page (98%, 2.8 s, 720 km, 800 V, 0.21 Cd and so on) is an illustrative design value, not a specification of a real vehicle.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-volterra--automotive.vercel.app-10b981?style=for-the-badge&logo=vercel&logoColor=white)](https://volterra-automotive.vercel.app/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![GSAP](https://img.shields.io/badge/GSAP-3.15-88CE02?style=for-the-badge&logo=greensock&logoColor=white)](https://greensock.com/gsap/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-The hero headline is **WELCOME ITZ FIZZ**. The same car stays on screen from the first frame to the moment it drives away, and its movement is tied directly to scroll progress.
+A cinematic, interactive landing page for **Volterra Automotive**, a luxury electric concept vehicle brand. Built with React 19, GSAP ScrollTrigger, and Tailwind CSS v4, the project delivers a seamless, scrubbed narrative experience where every chassis camera movement, dynamic statistic, and design callout is tied directly to scroll progress.
 
-## What is in the page
+🌐 **Experience the Live Application:** [https://volterra-automotive.vercel.app/](https://volterra-automotive.vercel.app/)
 
-- **Hero**: staggered headline, supporting copy, three counting statistics, the car, a scroll cue. The entrance is one GSAP timeline.
-- **Pinned scroll scene** (desktop and tablet): a single scrubbed `ScrollTrigger` timeline pushes in on the front axle, pans along the body to the rear, then sends the car out of frame. Callouts, captions and a progress rail respond to scroll. Scrolling up plays it in reverse.
-- **Performance**, **Design** and a closing **Explore the machine** section, with restrained reveals.
-- **Mobile**: no pinning, so touch scrolling stays natural. The car is nudged by scroll progress while the hero passes, and the technology notes appear as a normal list.
-- **Reduced motion**: no pinning, no entrance animation, everything visible and static.
+---
 
-## Tech stack
+## ✨ Highlights & Architecture
 
-React 19 + Vite, Tailwind CSS v4, GSAP 3 with ScrollTrigger, Lucide icons (menu and arrow only), Archivo variable font (self-hosted through `@fontsource-variable/archivo`).
+- **Cinematic Pinned Scroll Sequence**: A single continuous scrubbed `ScrollTrigger` timeline controls camera focus across the vehicle — pushing into the front axle, sweeping across the body contour, and smoothly transitioning toward the exit frame.
+- **Adaptive Viewport Orchestration (`gsap.matchMedia`)**: 
+  - **Desktop & Tablet:** Full pinning and 3D camera pan simulation with real-time progress indicators and interactive telemetry callouts.
+  - **Mobile:** Unpinned native touch scrolling with fluid scroll-offset micro-movements to preserve tactile responsiveness.
+  - **Accessibility (Reduced Motion):** Automatically disables pinning and scroll transforms for users with `prefers-reduced-motion: reduce`, presenting clean, static layouts.
+- **Independent Animation Layers**: Separate intro timeline (`[data-car-intro]`) and scroll-driven timeline (`[data-car-scroll]`) guarantee that initial entrance states never conflict with scrubbed scroll transformations.
+- **Hardware-Accelerated Performance**: All animations operate strictly on GPU-composited properties (`transform: translate3d/scale/rotate`, `opacity`) with geometry cached on refresh cycles (`invalidateOnRefresh`) rather than expensive per-frame recalculations.
+- **Curated Dark Aesthetic**: Bespoke obsidian, dark titanium, and high-voltage lime accents paired with self-hosted variable typography (`Archivo`).
 
-## Run locally
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Description |
+| :--- | :--- | :--- |
+| **Framework** | [React 19](https://react.dev/) | Component architecture & dynamic state hooks |
+| **Bundler & Tooling** | [Vite 8](https://vitejs.dev/) | Next-generation frontend build tooling |
+| **Animation Engine** | [GSAP 3](https://greensock.com/) + ScrollTrigger | Scrubbed cinematic timelines & scroll pinning |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) | Modern utility-first styling engine |
+| **Typography** | `@fontsource-variable/archivo` | High-performance self-hosted variable font |
+| **Icons** | [Lucide React](https://lucide.dev/) | Clean, minimalist SVG iconography |
+| **Hosting** | [Vercel](https://vercel.com/) | Edge-optimized continuous deployment |
+
+---
+
+## 📂 Project Structure
 
 ```bash
-npm install
-npm run dev        # http://localhost:5173
+volterra-automotive/
+├── public/
+│   ├── favicon.svg
+│   └── images/              # High-density automotive studio photography (WebP)
+├── src/
+│   ├── animations/
+│   │   ├── callouts.js      # Callout fade & coordinate triggers
+│   │   ├── heroIntro.js     # Initial hero timeline & stat count-up
+│   │   └── sceneScroll.js   # Pinned scrub & mobile scroll timelines
+│   ├── components/
+│   │   ├── Callout.jsx            # Interactive technical callout markers
+│   │   ├── ClosingSection.jsx     # Final explore & call-to-action block
+│   │   ├── DesignSection.jsx      # Aerodynamic styling narrative
+│   │   ├── EngineeringSection.jsx # Powertrain & chassis breakdown
+│   │   ├── Footer.jsx             # Brand footer & social navigation
+│   │   ├── Hero.jsx               # Staggered typography & counting metrics
+│   │   ├── Navbar.jsx             # Glassmorphism navigation bar
+│   │   ├── PerformanceStats.jsx   # Telemetry & specifications strip
+│   │   ├── ScrollCarScene.jsx     # Master scroll container & pinned canvas
+│   │   ├── ScrollCue.jsx          # Animated scroll progress cue
+│   │   └── TechnologyList.jsx     # Mobile-optimized architecture list
+│   ├── data/
+│   │   └── content.js       # Centralized automotive specs, copy & coordinates
+│   ├── lib/
+│   │   ├── gsap.js          # Plugin registration & custom defaults
+│   │   └── scrollTo.js      # Smooth programmatic jump navigation
+│   ├── App.jsx              # Application root & font-metric refresh listener
+│   ├── index.css            # Global tokens, color scales & typography rules
+│   └── main.jsx             # React DOM entry point
+└── vite.config.js           # Vite configuration with Tailwind CSS plugin
 ```
 
-```bash
-npm run build      # production build into dist/
-npm run preview    # serve the production build at http://localhost:4173
-```
+---
 
-## Deploy to GitHub Pages
+## 🚀 Getting Started
 
-The workflow in `.github/workflows/deploy.yml` builds the site with `VITE_BASE=/<repository-name>/` and publishes `dist/`.
+### Prerequisites
+- Node.js `18.0` or higher
+- npm, pnpm, or yarn
 
-1. Create a new GitHub repository and push this project to its `main` branch.
-2. In the repository, open **Settings > Pages** and set **Source** to **GitHub Actions**.
-3. The **Deploy to GitHub Pages** workflow runs on every push to `main`. When it finishes, the site is at `https://<your-username>.github.io/<repository-name>/`.
+### Installation & Local Development
 
-Without `VITE_BASE`, the build uses a relative base (`./`), so `dist/` also works on any other static host.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/codedbyanup/volterra-automotive.git
+   cd volterra-automotive
+   ```
 
-## Project structure
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-```
-src/
-  main.jsx, App.jsx, index.css
-  components/   Navbar, Hero, PerformanceStats, ScrollCue, ScrollCarScene, Callout,
-                TechnologyList, EngineeringSection, DesignSection, ClosingSection, Footer
-  animations/   heroIntro.js (load sequence), sceneScroll.js (pinned + mobile scroll scenes),
-                callouts.js (callout reveal)
-  lib/          gsap.js (plugin setup), scrollTo.js (section navigation), assets.js, refresh.js
-  data/         content.js (all copy, stats and callout positions)
-public/images/  car-hero-1024.webp, car-hero-2048.webp, perf-strip.webp, design-front.webp
-```
+3. **Start the local development server:**
+   ```bash
+   npm run dev
+   ```
+   Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-### How the scroll scene works
+4. **Create a production build:**
+   ```bash
+   npm run build
+   npm run preview
+   ```
 
-- `ScrollCarScene` wraps everything in `gsap.matchMedia()`, so the pinned version, the mobile version and the reduced-motion version are created and reverted cleanly when the viewport or preference changes. Cleanup also runs on unmount and on hot reload.
-- The car has two wrappers: `[data-car-intro]` is moved only by the load sequence, and `[data-car-scroll]` only by the scroll timeline. They never fight over a transform.
-- Car positions are computed from the photo's own geometry (`focus()` in `sceneScroll.js`) and re-measured on every ScrollTrigger refresh (`invalidateOnRefresh`), never inside a per-frame callback.
-- Only `x`, `y`, `scale`, rotation and opacity are animated while scrolling.
+---
 
-## Assets
+## 🌐 Deployment
 
-The car photograph is the image supplied for this project (1024 x 683). It is dark studio photography, **not a transparent cut-out**, so the page is built around it: the edges are faded into the page background (`car-hero-*.webp`) and the other sections use crops of the same photo.
+### Vercel (Current Production)
+The application is deployed on Vercel with automatic CI/CD integration:
+- **Production URL:** [https://volterra-automotive.vercel.app/](https://volterra-automotive.vercel.app/)
 
-- `car-hero-2048.webp` and the crops are the original resampled to 2x for smoother scaling. They contain no extra detail. For a sharper result, replace them with a larger original (2400 px wide or more) using the same filenames and the same dark studio background.
-- The photo shows a real manufacturer's badge, which does not match the fictional Volterra brand. Check that you have the right to use the image, and consider swapping in a photo that suits the brand before publishing.
-- Add a credit for the photograph here if its licence requires one.
+### GitHub Pages (Optional)
+The project includes a ready-to-use GitHub Actions workflow in `.github/workflows/deploy.yml`. When enabled under **Settings > Pages > GitHub Actions**, every push to `main` will build and publish the application.
 
-## Screenshots
+---
 
-Add your own once the site is live.
+## 📄 License & Attribution
 
-| Hero | Pinned scene | Mobile |
-| --- | --- | --- |
-| _screenshot_ | _screenshot_ | _screenshot_ |
+Designed and engineered as a showcase concept experience. Developed by [@codedbyanup](https://github.com/codedbyanup).
